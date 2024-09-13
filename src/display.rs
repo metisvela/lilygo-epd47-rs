@@ -68,7 +68,7 @@ impl<'a> Display<'a> {
         self.epd.frame_start()?;
         for chunk in self.framebuffer.as_raw_slice().chunks(DMA_BUFFER_SIZE) {
             self.epd.set_buffer(chunk);
-            self.epd.output_row(300)?;
+            self.epd.output_row(500)?;
         }
         self.epd.frame_end()?;
         self.clear_framebuffer();
