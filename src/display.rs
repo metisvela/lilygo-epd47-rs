@@ -66,7 +66,7 @@ impl<'a> Display<'a> {
     /// contents of your framebuffer.
     pub fn flush(&mut self) -> Result<()> {
         self.epd.frame_start()?;
-        for chunk in self.framebuffer.as_raw_slice().chunks(DMA_BUFFER_SIZE - 8) {
+        for chunk in self.framebuffer.as_raw_slice().chunks(DMA_BUFFER_SIZE) {
             self.epd.set_buffer(chunk);
             self.epd.output_row(300)?;
         }

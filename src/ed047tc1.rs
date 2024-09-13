@@ -14,7 +14,7 @@ use esp_hal::{
 
 use crate::rmt;
 
-pub const DMA_BUFFER_SIZE: usize = 248;
+pub const DMA_BUFFER_SIZE: usize = 240;
 
 fn dma_buffer() -> &'static mut [u8; DMA_BUFFER_SIZE] {
     static mut BUFFER: [u8; DMA_BUFFER_SIZE] = [0u8; DMA_BUFFER_SIZE];
