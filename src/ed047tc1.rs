@@ -14,7 +14,7 @@ use esp_hal::{
 
 use crate::rmt;
 
-const DMA_BUFFER_SIZE: usize = 248;
+pub const DMA_BUFFER_SIZE: usize = 248;
 
 fn dma_buffer() -> &'static mut [u8; DMA_BUFFER_SIZE] {
     static mut BUFFER: [u8; DMA_BUFFER_SIZE] = [0u8; DMA_BUFFER_SIZE];
@@ -250,11 +250,6 @@ impl<'a> ED047TC1<'a> {
 
         self.cfg_writer.config.latch_enable = false;
         self.cfg_writer.write();
-    }
-
-    pub(crate) fn skip(&mut self) -> crate::Result<()> {
-        self.rmt.pulse(45, 5, false)?;
-        Ok(())
     }
 
     pub(crate) fn output_row(&mut self, output_time: u16) -> crate::Result<()> {

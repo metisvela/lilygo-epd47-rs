@@ -104,18 +104,12 @@ pub enum Error {
     Dma(esp_hal::dma::DmaError),
     /// Provided pixel coordinates exceed the display boundary.
     OutOfBounds,
-    /// Provided color exceeds the allowed range of 0x0 - 0x0F
-    InvalidColor,
     Unknown,
 }
 
 type Result<T> = core::result::Result<T, Error>;
 
-pub use crate::{
-    battery::Battery,
-    display::{Display, DrawMode},
-    ed047tc1::PinConfig,
-};
+pub use crate::{battery::Battery, display::Display, ed047tc1::PinConfig};
 
 /// Convenience macro to build the pin config struct.
 #[macro_export]
