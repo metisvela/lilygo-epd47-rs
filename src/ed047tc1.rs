@@ -2,7 +2,7 @@ use core::ptr::addr_of_mut;
 
 use esp_hal::{
     clock::Clocks,
-    dma,
+    dma::{self},
     dma_buffers,
     gpio::{GpioPin, Level, Output, OutputPin},
     lcd_cam::{lcd::i8080, LcdCam},
@@ -157,7 +157,6 @@ impl<'a> ED047TC1<'a> {
         // configure dma
         let dma = dma::Dma::new(dma);
         let channel = dma.channel0.configure(false, dma::DmaPriority::Priority0);
-        let (_, tx_descriptors, _, _) = dma_buffers!(32678, 0);
 
         // init lcd
         let lcd_cam = LcdCam::new(lcd_cam);
@@ -165,6 +164,8 @@ impl<'a> ED047TC1<'a> {
         // init panel config writer (?)
         let mut cfg_writer = ConfigWriter::new(pins.cfg_data, pins.cfg_clk, pins.cfg_str);
         cfg_writer.write();
+
+        let (_tx_buffer, tx_descriptors, _, _rx_descriptors) = dma_buffers!(32000, 0);
 
         let ctrl = ED047TC1 {
             i8080: i8080::I8080::new(
